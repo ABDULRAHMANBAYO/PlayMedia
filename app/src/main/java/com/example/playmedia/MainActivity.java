@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mediaPlayer = new MediaPlayer();
-        mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.awade);
+        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.awade);
 
 
         playbButton = findViewById(R.id.playButton);
@@ -25,35 +25,38 @@ public class MainActivity extends AppCompatActivity {
         playbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying())
-                {
+                if (mediaPlayer.isPlaying()) {
                     pauseMusic();
 
-                }
-                else
-                {
+                } else {
                     playMusic();
                 }
             }
         });
     }
 
-    public void pauseMusic()
-    {
-        if(mediaPlayer != null)
-        {
+    public void pauseMusic() {
+        if (mediaPlayer != null) {
             mediaPlayer.pause();
             playbButton.setText(R.string.play_text);
         }
 
     }
 
-    public void playMusic()
-    {
-        if(mediaPlayer!=null) {
-        mediaPlayer.start();
-        playbButton.setText(R.string.pause_text);
+    public void playMusic() {
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+            playbButton.setText(R.string.pause_text);
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+            mediaPlayer.release();
+        }
     }
 }
